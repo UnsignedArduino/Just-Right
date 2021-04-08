@@ -642,6 +642,74 @@ f f f f f f f f f f f f f f f f
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
+            case "Fqb(FPnzDQ$[dHG?8rbh":
+            case "pan_top_down":return img`
+cccccccccccccccccccccccc
+cccccccccccccccccccccccc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+ccbbbbbbbbbbbbbbbbbbbbcc
+cccccccccccccccccccccccc
+cccccccccccccccccccccccc
+`;
+            case "hNn,-OiT=VV@-Bkp*6`M":
+            case "butter_top_down":return img`
+5 5 5 5 
+5 5 5 5 
+5 5 5 5 
+5 5 5 5 
+`;
+            case "(TQ-D:=rze#o[8!%+z8A":
+            case "pan_top_down_buttered":return img`
+cccccccccccccccccccccccc
+cccccccccccccccccccccccc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+ccddddddddddddddddddddcc
+cccccccccccccccccccccccc
+cccccccccccccccccccccccc
+`;
+            case "3JK2N3}5PDd/sy?":
+            case "buttered_pan_part":return img`
+d d d d 
+d d d d 
+d d d d 
+d d d d 
+`;
         }
         return null;
     })
