@@ -18,6 +18,9 @@ function fade_in (time: number, block: boolean) {
         color.pauseUntilFadeDone()
     }
 }
+function show_score () {
+    game.showLongText("Task completed!\\n" + " \\nTime: " + spriteutils.roundWithPrecision(time_spent / 1000, 2) + "s\\nScore: " + score_this_session + "\\nTotal: " + score + "\\n \\nPress A to continue", DialogLayout.Center)
+}
 function make_instruction (instructions: string, x: number, top: number) {
     sprite_instructions = textsprite.create(instructions, 0, 15)
     sprite_instructions.x = x
@@ -35,6 +38,7 @@ function preheat_oven () {
     sprite_temp.top = 36
     fade_out(2000, true)
     start_time = game.runtime()
+    pause(500)
     while (temperature != 400) {
         sprite_temp.setText("" + temperature + "F")
         if (controller.up.isPressed()) {
@@ -50,11 +54,15 @@ function preheat_oven () {
         pause(100)
     }
     sprite_temp.setText("" + temperature + "F")
-    timer.after(500, function () {
-        scene.setBackgroundImage(assets.image`oven_lit`)
-    })
+    pause(500)
+    scene.setBackgroundImage(assets.image`oven_lit`)
     end_time = game.runtime()
-    time_spent = end_time - start_time
+    time_spent += Math.round(end_time - start_time)
+    score_this_session = Math.round(1000 - Math.min((end_time - start_time) / 10, 1000))
+    score += score_this_session
+    pause(500)
+    show_score()
+    pause(500)
     fade_in(2000, true)
     destroy_instructions()
 }
@@ -63,11 +71,9 @@ let start_time = 0
 let sprite_temp: TextSprite = null
 let temperature = 0
 let sprite_instructions: TextSprite = null
+let score_this_session = 0
+let score = 0
 let time_spent = 0
-if (false) {
-    color.setPalette(
-    color.Black
-    )
-}
 time_spent = 0
+score = 0
 preheat_oven()
