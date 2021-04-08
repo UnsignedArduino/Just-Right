@@ -1,6 +1,11 @@
 namespace SpriteKind {
     export const Instruction = SpriteKind.create()
 }
+function update_scores () {
+    time_spent += Math.round(end_time - start_time)
+    score_this_session = Math.round(1000 - Math.min((end_time - start_time) / 10, 1000))
+    score += score_this_session
+}
 function destroy_instructions () {
     for (let sprite of sprites.allOfKind(SpriteKind.Instruction)) {
         sprite.destroy()
@@ -27,8 +32,73 @@ function make_instruction (instructions: string, x: number, top: number) {
     sprite_instructions.top = top
     sprite_instructions.setKind(SpriteKind.Instruction)
 }
+function sift_flour () {
+    scene.setBackgroundImage(assets.image`counter_top`)
+    make_instruction("Sift the flour", scene.screenWidth() / 2, 5)
+    make_instruction("Use left/right to sift", scene.screenWidth() / 2, 13)
+    make_instruction("the flour", scene.screenWidth() / 2, 21)
+    sprite_sifter = sprites.create(assets.image`sifter`, SpriteKind.Player)
+    sprite_sifter.y = 40
+    sprite_sifter.x = scene.screenWidth() / 2 - 5
+    sprite_bowl = sprites.create(img`
+        ..........................
+        ffffffffffffffffffffffffff
+        f777777777777777777777777f
+        f777777777777777777777777f
+        f777777777777777777777777f
+        f777777777777777777777777f
+        f777777777777777777777777f
+        .f7777777777777777777777f.
+        .f7777777777777777777777f.
+        ..f77777777777777777777f..
+        ..f77777777777777777777f..
+        ...f777777777777777777f...
+        ....f7777777777777777f....
+        .....ff777777777777ff.....
+        .......ff77777777ff.......
+        .........ffffffff.........
+        `, SpriteKind.Player)
+    sprite_bowl.x = scene.screenWidth() / 2
+    sprite_bowl.bottom = 88
+    sifted_percent = 0
+    left = true
+    fade_out(2000, true)
+    start_time = game.runtime()
+    pause(500)
+    while (!(sifted_percent >= 100)) {
+        if (controller.right.isPressed() && left) {
+            left = false
+            sifted_percent += 5
+            for (let index = 0; index < 3; index++) {
+                sprite_sifter.startEffect(effects.spray, 100)
+            }
+        } else if (controller.left.isPressed() && !(left)) {
+            left = true
+            sifted_percent += 5
+            for (let index = 0; index < 3; index++) {
+                sprite_sifter.startEffect(effects.spray, 100)
+            }
+        }
+        if (left) {
+            sprite_sifter.x = scene.screenWidth() / 2 - 5
+        } else {
+            sprite_sifter.x = scene.screenWidth() / 2 + 5
+        }
+        pause(100)
+    }
+    pause(500)
+    scene.setBackgroundImage(assets.image`counter_top`)
+    end_time = game.runtime()
+    update_scores()
+    pause(500)
+    show_score()
+    pause(500)
+    fade_in(2000, true)
+    destroy_instructions()
+    sprite_sifter.destroy()
+    sprite_bowl.destroy()
+}
 function center_rack () {
-    // 48 --> 108
     scene.setBackgroundImage(assets.image`oven_open_lit`)
     make_instruction("Center the rack", scene.screenWidth() / 2, 5)
     make_instruction("Use up/down to raise/lower", scene.screenWidth() / 2, 13)
@@ -54,9 +124,7 @@ function center_rack () {
     sprite_rack.destroy()
     scene.setBackgroundImage(assets.image`oven_lit`)
     end_time = game.runtime()
-    time_spent += Math.round(end_time - start_time)
-    score_this_session = Math.round(1000 - Math.min((end_time - start_time) / 10, 1000))
-    score += score_this_session
+    update_scores()
     pause(500)
     show_score()
     pause(500)
@@ -94,9 +162,7 @@ function preheat_oven () {
     pause(500)
     scene.setBackgroundImage(assets.image`oven_lit`)
     end_time = game.runtime()
-    time_spent += Math.round(end_time - start_time)
-    score_this_session = Math.round(1000 - Math.min((end_time - start_time) / 10, 1000))
-    score += score_this_session
+    update_scores()
     pause(500)
     show_score()
     pause(500)
@@ -105,15 +171,20 @@ function preheat_oven () {
     sprite_temp.destroy()
 }
 let temperature = 0
-let end_time = 0
-let start_time = 0
 let sprite_rack: Sprite = null
 let sprite_temp: TextSprite = null
+let left = false
+let sifted_percent = 0
+let sprite_bowl: Sprite = null
+let sprite_sifter: Sprite = null
 let sprite_instructions: TextSprite = null
 let score_this_session = 0
+let start_time = 0
+let end_time = 0
 let score = 0
 let time_spent = 0
 time_spent = 0
 score = 0
+sift_flour()
 preheat_oven()
 center_rack()
